@@ -33,7 +33,7 @@ Write-Host -ForegroundColor Green "`n###########################################
 Write-Host -ForegroundColor Green "`n##### Testing $env:CC_NAME #####`n"
 New-Item -ItemType directory -Path "build"
 cd build
-& cmake -DUA_BUILD_EXAMPLES:BOOL=ON -DUA_COMPILE_AS_CXX:BOOL=$env:FORCE_CXX -G"$env:CC_NAME" ..
+& cmake -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DUA_BUILD_EXAMPLES:BOOL=ON -DUA_COMPILE_AS_CXX:BOOL=$env:FORCE_CXX -DUA_ENABLE_ENCRYPTION=ON -G"$env:CC_NAME" ..
 Invoke-Expression $make_cmd
 if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) {
 	Write-Host -ForegroundColor Red "`n`n*** Make failed. Exiting ... ***"
@@ -113,7 +113,7 @@ if ($env:CC_SHORTNAME -eq "vs2015") {
 	Write-Host -ForegroundColor Green "`n##### Testing $env:CC_NAME with unit tests #####`n"
 	New-Item -ItemType directory -Path "build"
 	cd build
-	& cmake -DCMAKE_BUILD_TYPE=Debug -DUA_BUILD_EXAMPLES=OFF -DUA_ENABLE_DISCOVERY=ON -DUA_ENABLE_DISCOVERY_MULTICAST=ON -DUA_ENABLE_ENCRYPTION=ON -DUA_BUILD_UNIT_TESTS=ON -DUA_ENABLE_UNIT_TESTS_MEMCHECK=ON -DCMAKE_LIBRARY_PATH=c:\check\lib -DCMAKE_INCLUDE_PATH=c:\check\include -DUA_COMPILE_AS_CXX:BOOL=$env:FORCE_CXX -G"$env:CC_NAME" ..
+	& cmake -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Debug -DUA_BUILD_EXAMPLES=OFF -DUA_ENABLE_DISCOVERY=ON -DUA_ENABLE_DISCOVERY_MULTICAST=ON -DUA_ENABLE_ENCRYPTION=ON -DUA_BUILD_UNIT_TESTS=ON -DUA_ENABLE_UNIT_TESTS_MEMCHECK=ON -DCMAKE_LIBRARY_PATH=c:\check\lib -DCMAKE_INCLUDE_PATH=c:\check\include -DUA_COMPILE_AS_CXX:BOOL=$env:FORCE_CXX -G"$env:CC_NAME" ..
 	Invoke-Expression $make_cmd
     if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) {
     	Write-Host -ForegroundColor Red "`n`n*** Make failed. Exiting ... ***"
