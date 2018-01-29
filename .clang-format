@@ -1,0 +1,8 @@
+---
+Language:        Cpp
+BasedOnStyle:    google
+ColumnLimit:     80
+ForEachMacros:   [ foreach, LIST_FOREACH, LIST_FOREACH_SAFE ]
+SpaceBeforeParens: ControlStatements
+DisableFormat:   false
+
