@@ -7,17 +7,6 @@ if [ -z ${DOCKER+x} ]; then
 
 	echo "=== Installing from external package sources ===" && echo -en 'travis_fold:start:before_install.external\\r'
 
-	if [ "$CC" = "clang" ]; then
-		# the ubuntu repo has a somehow broken clang-3.9 compiler. We want to use the one from the llvm repo
-		# See https://github.com/openssl/openssl/commit/404c76f4ee1dc51c0d200e2b60a6340aadb44e38
-		sudo cp .travis-apt-pin.preferences /etc/apt/preferences.d/no-ubuntu-clang
-		curl -sSL "http://apt.llvm.org/llvm-snapshot.gpg.key" | sudo -E apt-key add -
-		echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main" | sudo tee -a /etc/apt/sources.list > /dev/null
-		sudo -E apt-add-repository -y "ppa:ubuntu-toolchain-r/test"
-		sudo -E apt-get -yq update
-		sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install clang-3.9 clang-tidy-3.9 libfuzzer-3.9-dev
-	fi
-
 	if [ "$CC" = "tcc" ]; then
 		mkdir tcc_install && cd tcc_install
 		wget https://download.savannah.gnu.org/releases/tinycc/tcc-0.9.27.tar.bz2

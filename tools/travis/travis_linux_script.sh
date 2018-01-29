@@ -28,8 +28,8 @@ if [ $ANALYZE = "true" ]; then
     if [ "$CC" = "clang" ]; then
         mkdir -p build
         cd build
-        scan-build-3.9 cmake -DUA_BUILD_EXAMPLES=ON -DUA_BUILD_UNIT_TESTS=ON ..
-        scan-build-3.9 -enable-checker security.FloatLoopCounter \
+        scan-build-5.0 cmake -DUA_BUILD_EXAMPLES=ON -DUA_BUILD_UNIT_TESTS=ON ..
+        scan-build-5.0 -enable-checker security.FloatLoopCounter \
           -enable-checker security.insecureAPI.UncheckedReturn \
           --status-bugs -v \
           make -j
@@ -37,8 +37,8 @@ if [ $ANALYZE = "true" ]; then
 
         mkdir -p build
         cd build
-        scan-build-3.9 cmake -DUA_ENABLE_AMALGAMATION=ON ..
-        scan-build-3.9 -enable-checker security.FloatLoopCounter \
+        scan-build-5.0 cmake -DUA_ENABLE_AMALGAMATION=ON ..
+        scan-build-5.0 -enable-checker security.FloatLoopCounter \
           -enable-checker security.insecureAPI.UncheckedReturn \
           --status-bugs -v \
           make -j
